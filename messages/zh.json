@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "結果",
+      "text2": "您的號碼"
+    },
+    "listFeature": {
+      "text1": "結果",
+      "text2": "獎品",
+      "text3": "您的號碼",
+      "text4": "您的幸運數字"
+    },
+    "listRank": {
+      "text1": "頭獎",
+      "text2": "二獎",
+      "text3": "三獎"
+    },
+    "notSupport": "我們只支持手機界面，請更換設備或縮小螢幕。",
+    "main": {
+      "text1": "稍後開始",
+      "text2": "參與者",
+      "text3": "中獎者"
+    },
+    "BodyDrawerPrize": {
+      "text1": "特別獎",
+      "text2": "價值 25,000,000₫",
+      "text3": "二獎",
+      "text4": "6 箱老虎啤酒",
+      "text5": "三獎",
+      "text6": "3 箱老虎啤酒"
+    },
+    "ListCountDonw": {
+      "text1": "天",
+      "text2": "小時",
+      "text3": "分鐘",
+      "text4": "秒"
+    },
+    "NoTicket": {
+      "text1": "您還沒有任何號碼，快邀請您的朋友加入 Vua Thợ 以獲得您的幸運號碼！",
+      "text2": "邀請朋友"
+    }
+  }
+}

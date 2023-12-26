@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Rezultāti",
+      "text2": "Jūsu numurs"
+    },
+    "listFeature": {
+      "text1": "Rezultāti",
+      "text2": "Balvas",
+      "text3": "Jūsu numurs",
+      "text4": "Jūsu veiksminieko skaitru sērija"
+    },
+    "listRank": {
+      "text1": "Galvenā balva",
+      "text2": "Otrā vieta",
+      "text3": "Trešā vieta"
+    },
+    "notSupport": "Mēs atbalstām tikai mobilās saskarnes, lūdzu, nomainiet ierīci vai samaziniet ekrāna izmēru.",
+    "main": {
+      "text1": "Sākt pēc",
+      "text2": "Dalībnieki",
+      "text3": "Uzvarētājs"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Īpašā balva",
+      "text2": "Vērtība 25.000.000 VND",
+      "text3": "Otrā vieta",
+      "text4": "6 Iepakojumi ar Tiger alu",
+      "text5": "Trešā vieta",
+      "text6": "3 Iepakojumi ar Tiger alu"
+    },
+    "ListCountDown": {
+      "text1": "Diena",
+      "text2": "Stunda",
+      "text3": "Minūte",
+      "text4": "Sekunde"
+    },
+    "NoTicket": {
+      "text1": "Jums nav neviena numura, aiciniet draugus piedalīties Vua Thợ, lai saņemtu savu veiksminieko numuru!",
+      "text2": "Aiciniet draugus"
+    }
+  }
+}

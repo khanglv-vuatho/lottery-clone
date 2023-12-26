@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Risultato",
+      "text2": "Il tuo numero"
+    },
+    "listFeature": {
+      "text1": "Risultato",
+      "text2": "Premi",
+      "text3": "Il tuo numero",
+      "text4": "La tua serie fortunata"
+    },
+    "listRank": {
+      "text1": "Primo premio",
+      "text2": "Secondo premio",
+      "text3": "Terzo premio"
+    },
+    "notSupport": "Supportiamo solo l'interfaccia mobile, per favore cambia il tuo dispositivo o riduci la dimensione dello schermo.",
+    "main": {
+      "text1": "Inizia dopo",
+      "text2": "Partecipanti",
+      "text3": "Vincitori"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Premio speciale",
+      "text2": "Valore 25.000.000 VND",
+      "text3": "Secondo premio",
+      "text4": "6 Casse di birra Tiger",
+      "text5": "Terzo premio",
+      "text6": "3 Casse di birra Tiger"
+    },
+    "ListCountDonw": {
+      "text1": "Giorni",
+      "text2": "Ore",
+      "text3": "Minuti",
+      "text4": "Secondi"
+    },
+    "NoTicket": {
+      "text1": "Non hai ancora nessun numero, invita i tuoi amici a unirsi a Vua Thợ per ricevere i tuoi numeri fortunati!",
+      "text2": "Invita gli amici"
+    }
+  }
+}

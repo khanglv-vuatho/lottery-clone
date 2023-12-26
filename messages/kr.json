@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "결과",
+      "text2": "당신의 번호"
+    },
+    "listFeature": {
+      "text1": "결과",
+      "text2": "상",
+      "text3": "당신의 번호",
+      "text4": "당신의 행운 번호"
+    },
+    "listRank": {
+      "text1": "일등상",
+      "text2": "이등상",
+      "text3": "삼등상"
+    },
+    "notSupport": "우리는 휴대전화 인터페이스만 지원합니다. 기기를 변경하거나 화면 크기를 줄이십시오.",
+    "main": {
+      "text1": "나중에 시작",
+      "text2": "참가자",
+      "text3": "우승자"
+    },
+    "BodyDrawerPrize": {
+      "text1": "특별상",
+      "text2": "25,000,000 VND 상당",
+      "text3": "이등상",
+      "text4": "타이거 맥주 6 상자",
+      "text5": "삼등상",
+      "text6": "타이거 맥주 3 상자"
+    },
+    "ListCountDonw": {
+      "text1": "일",
+      "text2": "시간",
+      "text3": "분",
+      "text4": "초"
+    },
+    "NoTicket": {
+      "text1": "아직 번호가 없습니다. 친구를 Vua Thợ에 초대하여 행운 번호를 받아보세요!",
+      "text2": "친구 초대"
+    }
+  }
+}

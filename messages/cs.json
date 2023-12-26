@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Výsledek",
+      "text2": "Vaše číslo"
+    },
+    "listFeature": {
+      "text1": "Výsledek",
+      "text2": "Ceny",
+      "text3": "Vaše číslo",
+      "text4": "Vaše šťastná čísla"
+    },
+    "listRank": {
+      "text1": "První cena",
+      "text2": "Druhá cena",
+      "text3": "Třetí cena"
+    },
+    "notSupport": "Podporujeme pouze mobilní rozhraní, prosím, změňte zařízení nebo zmenšte obrazovku.",
+    "main": {
+      "text1": "Začne za",
+      "text2": "Účastníci",
+      "text3": "Vítězové"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Speciální cena",
+      "text2": "Hodnota 25.000.000 đồng",
+      "text3": "Druhá cena",
+      "text4": "6 Beden piva Tiger",
+      "text5": "Třetí cena",
+      "text6": "3 Beden piva Tiger"
+    },
+    "ListCountDonw": {
+      "text1": "Dny",
+      "text2": "Hodiny",
+      "text3": "Minuty",
+      "text4": "Sekundy"
+    },
+    "NoTicket": {
+      "text1": "Zatím nemáte žádná čísla, pozvěte své přátele, aby se připojili k Vua Thợ a získejte svá šťastná čísla!",
+      "text2": "Pozvat přátele"
+    }
+  }
+}

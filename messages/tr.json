@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Sonuç",
+      "text2": "Numaranız"
+    },
+    "listFeature": {
+      "text1": "Sonuç",
+      "text2": "Ödül",
+      "text3": "Numaranız",
+      "text4": "Şanslı sayı diziniz"
+    },
+    "listRank": {
+      "text1": "Birinci Ödül",
+      "text2": "İkinci Ödül",
+      "text3": "Üçüncü Ödül"
+    },
+    "notSupport": "Sadece telefon arayüzünü destekliyoruz, lütfen cihazınızı değiştirin veya ekranı küçültün.",
+    "main": {
+      "text1": "Başlangıç sonra",
+      "text2": "Katılımcı",
+      "text3": "Kazanan"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Özel Ödül",
+      "text2": "Değerinde 25.000.000₫",
+      "text3": "İkinci Ödül",
+      "text4": "6 Kutu Tiger Bira",
+      "text5": "Üçüncü Ödül",
+      "text6": "3 Kutu Tiger Bira"
+    },
+    "ListCountDonw": {
+      "text1": "Gün",
+      "text2": "Saat",
+      "text3": "Dakika",
+      "text4": "Saniye"
+    },
+    "NoTicket": {
+      "text1": "Henüz hiç sayı diziniz yok, Şanslı Usta'ya katılmaya davet etmek için arkadaşlarınızı davet edin!",
+      "text2": "Arkadaşlarınızı Davet Edin"
+    }
+  }
+}

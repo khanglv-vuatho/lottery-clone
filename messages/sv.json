@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Resultat",
+      "text2": "Ditt nummer"
+    },
+    "listFeature": {
+      "text1": "Resultat",
+      "text2": "Vinst",
+      "text3": "Ditt nummer",
+      "text4": "Din lyckonummer"
+    },
+    "listRank": {
+      "text1": "Första pris",
+      "text2": "Andra pris",
+      "text3": "Tredje pris"
+    },
+    "notSupport": "Vi stöder endast mobilgränssnitt, var god byt enhet eller förminska skärmstorleken.",
+    "main": {
+      "text1": "Börjar om",
+      "text2": "Deltagare",
+      "text3": "Vinnare"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Särskilt pris",
+      "text2": "Värde 25.000.000 VND",
+      "text3": "Andra pris",
+      "text4": "6 lådor Tiger-öl",
+      "text5": "Tredje pris",
+      "text6": "3 lådor Tiger-öl"
+    },
+    "ListCountDown": {
+      "text1": "Dagar",
+      "text2": "Timmar",
+      "text3": "Minuter",
+      "text4": "Sekunder"
+    },
+    "NoTicket": {
+      "text1": "Du har inte fått något lyckonummer än, bjud in dina vänner att delta i Vua Thợ och få ditt lyckonummer!",
+      "text2": "Bjud in vänner"
+    }
+  }
+}

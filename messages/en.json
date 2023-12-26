@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Result",
+      "text2": "Your numbers"
+    },
+    "listFeature": {
+      "text1": "Result",
+      "text2": "Prizes",
+      "text3": "Your numbers",
+      "text4": "Your lucky numbers"
+    },
+    "listRank": {
+      "text1": "First prize",
+      "text2": "Second prize",
+      "text3": "Third prize"
+    },
+    "notSupport": "We only support mobile interface, please change your device or shrink the screen.",
+    "main": {
+      "text1": "Starting in",
+      "text2": "Participants",
+      "text3": "Winners"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Special prize",
+      "text2": "Value 25,000,000 VND",
+      "text3": "Second prize",
+      "text4": "6 Crates of Tiger beer",
+      "text5": "Third prize",
+      "text6": "3 Crates of Tiger beer"
+    },
+    "ListCountDonw": {
+      "text1": "Days",
+      "text2": "Hours",
+      "text3": "Minutes",
+      "text4": "Seconds"
+    },
+    "NoTicket": {
+      "text1": "You don't have any numbers yet, invite your friends to join Vua Thợ to receive your lucky numbers!",
+      "text2": "Invite friends"
+    }
+  }
+}

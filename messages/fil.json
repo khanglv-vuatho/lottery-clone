@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Resulta",
+      "text2": "Ang iyong mga numero"
+    },
+    "listFeature": {
+      "text1": "Resulta",
+      "text2": "Mga premyo",
+      "text3": "Ang iyong mga numero",
+      "text4": "Ang iyong mga swerteng numero"
+    },
+    "listRank": {
+      "text1": "Unang premyo",
+      "text2": "Pangalawang premyo",
+      "text3": "Pangatlong premyo"
+    },
+    "notSupport": "Suportado lamang namin ang interface ng mobile, mangyaring palitan ang iyong device o i-zoom out ang iyong screen.",
+    "main": {
+      "text1": "Magsisimula sa",
+      "text2": "Mga kalahok",
+      "text3": "Mga nanalo"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Espesyal na premyo",
+      "text2": "Halaga na 25,000,000 VND",
+      "text3": "Pangalawang premyo",
+      "text4": "6 Kaha ng beer na Tiger",
+      "text5": "Pangatlong premyo",
+      "text6": "3 Kaha ng beer na Tiger"
+    },
+    "ListCountDonw": {
+      "text1": "Araw",
+      "text2": "Oras",
+      "text3": "Minuto",
+      "text4": "Segundo"
+    },
+    "NoTicket": {
+      "text1": "Wala ka pang mga numero, imbitahan ang iyong mga kaibigan na sumali sa Vua Thợ upang makatanggap ng iyong mga swerteng numero!",
+      "text2": "Imbitahan ang mga kaibigan"
+    }
+  }
+}

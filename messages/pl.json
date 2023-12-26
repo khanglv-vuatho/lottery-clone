@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Wyniki",
+      "text2": "Twój numer"
+    },
+    "listFeature": {
+      "text1": "Wyniki",
+      "text2": "Nagrody",
+      "text3": "Twój numer",
+      "text4": "Twoje szczęśliwe liczby"
+    },
+    "listRank": {
+      "text1": "Nagroda główna",
+      "text2": "Druga nagroda",
+      "text3": "Trzecia nagroda"
+    },
+    "notSupport": "Obsługujemy tylko interfejsy telefoniczne, proszę zmień urządzenie lub zmniejsz rozmiar ekranu.",
+    "main": {
+      "text1": "Rozpocznij za",
+      "text2": "Uczestnicy",
+      "text3": "Zwycięzca"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Nagroda specjalna",
+      "text2": "Wartość 25.000.000 VND",
+      "text3": "Druga nagroda",
+      "text4": "6 Paczek piwa Tiger",
+      "text5": "Trzecia nagroda",
+      "text6": "3 Paczki piwa Tiger"
+    },
+    "ListCountDown": {
+      "text1": "Dzień",
+      "text2": "Godzina",
+      "text3": "Minuta",
+      "text4": "Sekunda"
+    },
+    "NoTicket": {
+      "text1": "Nie masz jeszcze żadnego numeru, zaproś przyjaciół do udziału w Vua Thợ, aby otrzymać swoje szczęśliwe liczby!",
+      "text2": "Zaproś przyjaciół"
+    }
+  }
+}

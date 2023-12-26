@@ -1,0 +1,19 @@
+.ct-container-game {
+  @apply mx-auto w-full px-4;
+}
+
+.ct-background-app {
+  background: linear-gradient(
+    180deg,
+    #3d73fe 0%,
+    #3e72ff 9.9%,
+    #3c84ef 24.48%,
+    #c3e3fe 43.23%,
+    #2c66d7 100%
+  );
+}
+
+.ct-text-border {
+  text-shadow: 2px 0 #062b89, -2px 0 #062b89, 0 2px #062b89, 0 -2px #062b89,
+    1px 1px #062b89, -1px -1px #062b89, 1px -1px #062b89, -1px 1px #062b89;
+}

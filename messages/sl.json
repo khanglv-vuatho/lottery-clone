@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Rezultati",
+      "text2": "Vaša številka"
+    },
+    "listFeature": {
+      "text1": "Rezultati",
+      "text2": "Nagrade",
+      "text3": "Vaša številka",
+      "text4": "Vaše srečno številko"
+    },
+    "listRank": {
+      "text1": "Prva nagrada",
+      "text2": "Druga nagrada",
+      "text3": "Tretja nagrada"
+    },
+    "notSupport": "Podpiramo le mobilno vmesnik, prosim, zamenjajte napravo ali pomanjšajte velikost zaslona.",
+    "main": {
+      "text1": "Začne se čez",
+      "text2": "Udeleženci",
+      "text3": "Zmagovalec"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Posebna nagrada",
+      "text2": "Vrednost 25.000.000 VND",
+      "text3": "Druga nagrada",
+      "text4": "6 škatel piva Tiger",
+      "text5": "Tretja nagrada",
+      "text6": "3 škatle piva Tiger"
+    },
+    "ListCountDown": {
+      "text1": "Dnevi",
+      "text2": "Ure",
+      "text3": "Minute",
+      "text4": "Sekunde"
+    },
+    "NoTicket": {
+      "text1": "Še nimate srečne številke, povabite prijatelje, da se pridružijo Vua Thợ in dobijo svojo srečno številko!",
+      "text2": "Povabi prijatelje"
+    }
+  }
+}

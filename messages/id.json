@@ -1,0 +1,43 @@
+{
+  "Lottery": {
+    "tabsResult": {
+      "text1": "Hasil",
+      "text2": "Nomor Anda"
+    },
+    "listFeature": {
+      "text1": "Hasil",
+      "text2": "Hadiah",
+      "text3": "Nomor Anda",
+      "text4": "Nomor keberuntungan Anda"
+    },
+    "listRank": {
+      "text1": "Hadiah utama",
+      "text2": "Hadiah kedua",
+      "text3": "Hadiah ketiga"
+    },
+    "notSupport": "Kami hanya mendukung antarmuka ponsel, harap ganti perangkat atau perkecil ukuran layar.",
+    "main": {
+      "text1": "Dimulai dalam",
+      "text2": "Peserta",
+      "text3": "Pemenang"
+    },
+    "BodyDrawerPrize": {
+      "text1": "Hadiah khusus",
+      "text2": "Nilainya 25.000.000 VND",
+      "text3": "Hadiah kedua",
+      "text4": "6 Kardus bir Tiger",
+      "text5": "Hadiah ketiga",
+      "text6": "3 Kardus bir Tiger"
+    },
+    "ListCountDonw": {
+      "text1": "Hari",
+      "text2": "Jam",
+      "text3": "Menit",
+      "text4": "Detik"
+    },
+    "NoTicket": {
+      "text1": "Anda belum memiliki nomor apa pun, undang teman Anda untuk bergabung dengan Vua Thợ dan dapatkan nomor keberuntungan Anda!",
+      "text2": "Undang teman-teman"
+    }
+  }
+}
