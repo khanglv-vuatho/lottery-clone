@@ -179,7 +179,7 @@ function Lottery() {
 
   const timeDefine: any = useMemo(() => {
     const ROUNDS = 10
-    const ONE_ROUND_DEG = 30
+    const ONE_ROUND_DEG = 360
     const TOTAL_ROUND = ONE_ROUND_DEG * ROUNDS
     const TIME = TOTAL_ROUND / ONE_ROUND_DEG
     const TIME_STOP = 4
