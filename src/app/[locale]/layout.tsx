@@ -4,6 +4,7 @@ import './globals.css'
 import { redirect } from 'next/navigation'
 import { NextIntlClientProvider, useLocale } from 'next-intl'
 import { locales } from '@/constants'
+import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -14,7 +14,7 @@ import { useLocale, useTranslations } from 'next-intl'
 
 import {
   THeaderDrawer,
-  TListCountDonw,
+  TListCountDown,
   TListFeature,
   TListPromotion,
   TListRank,
@@ -29,6 +29,7 @@ import instance from '@/services/axiosConfig'
 import './lottery.css'
 import LotteryMachine from '@/components/LotteryMachine'
 import { twMerge } from 'tailwind-merge'
+import Head from 'next/head'
 
 function Lottery() {
   const t = useTranslations('Lottery')
@@ -113,6 +114,7 @@ function Lottery() {
       )
 
       setIndexSpiner(isPast ? currentIndexBall + 1 : 0)
+      // setIndexSpiner(11)
 
       if (currentIndexBall >= data?.bingo?.length) {
         setCurrentRank(data?.rank - 1)
@@ -147,24 +149,14 @@ function Lottery() {
 
   const [onStart, setOnStart] = useState<boolean>(false)
 
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
+
   //data from api
   const [bingo, setBingo] = useState([])
 
   // list "?" 12 numbers
-  const [listBingo, setListBingo] = useState([
-    '?',
-    '?',
-    '?',
-    '?',
-    '?',
-    '?',
-    '?',
-    '?',
-    '?',
-    '?',
-    '?',
-    '?',
-  ])
+  const initListDefault = Array(12).fill('?')
+  const [listBingo, setListBingo] = useState(initListDefault)
 
   useEffect(() => {
     // Update listBingo based on bingo array
@@ -187,7 +179,7 @@ function Lottery() {
 
   const timeDefine: any = useMemo(() => {
     const ROUNDS = 10
-    const ONE_ROUND_DEG = 360
+    const ONE_ROUND_DEG = 30
     const TOTAL_ROUND = ONE_ROUND_DEG * ROUNDS
     const TIME = TOTAL_ROUND / ONE_ROUND_DEG
     const TIME_STOP = 4
@@ -209,12 +201,16 @@ function Lottery() {
   useEffect(() => {
     if (onTimeEnd) {
       setCurrentRank(initalDataFromApi?.rank - 1)
-
       animate([
         [
           scope.current,
-          { rotate: timeDefine.TOTAL_ROUND * (indexSpiner + 1) },
-          { duration: timeDefine.TIME, ease: 'linear', repeat: Infinity, delay: 0.5 },
+          { rotate: timeDefine.TOTAL_ROUND * (indexSpiner + 1), opacity: 1 },
+          {
+            duration: timeDefine.TIME,
+            ease: 'linear',
+            repeat: Infinity,
+            delay: timeDefine.DELAY_TIME,
+          },
         ],
         [
           scope.current,
@@ -264,35 +260,68 @@ function Lottery() {
     }, 2000)
 
     //Quay hết các cặp số thì return null
-    if (indexSpiner + 1 === listBingo.length) return null
-
+    // chỗ này ngăn vì không cho chạy xuống dưới setOnTimeEnd(true)
+    if (indexSpiner + 1 === listBingo.length) {
+      return null
+    }
     refOnTimeEnd.current = setTimeout(() => {
       setOnTimeEnd(true)
       setOnStartAnimate(false)
     }, 4000)
   }
 
+  const _HandleReset = () => {
+    setOnFetching(true)
+    //4 là không có rank
+    setCurrentRank(4)
+    setListBingo(initListDefault)
+    animate([
+      [
+        scope.current,
+        { rotate: 0, opacity: 0 },
+        {
+          duration: 0.00000001,
+        },
+      ],
+      [
+        scope.current,
+        { rotate: 0, opacity: 1 },
+        {
+          duration: 0.00000001,
+        },
+      ],
+    ])
+  }
+
   const _HandleChangeNumber = () => {
+    console.log(indexSpiner + 1 === listBingo.length)
+
     setListBingo((prevList) => {
       const newList = [...prevList]
       newList[indexSpiner] = bingo[indexSpiner]
       return newList
     })
+    //Quay hết các cặp số thì return null vì phải đợi setListBingo hiển thin ra kết quả nên phải ngăn thêm tại chỗ này
+    if (indexSpiner + 1 === listBingo.length) {
+      _HandleReset()
+      return null
+    }
     setIndexSpiner((prevIndex) => prevIndex + 1)
     setOnChangeNumber(false)
   }
-  const [isSmallScreen, setIsSmallScreen] = useState(window?.innerWidth < 1024)
 
-  const handleResize = () => {
-    setIsSmallScreen(window.innerWidth < 1024)
-  }
   useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 1024)
+    }
+    handleResize()
+
     window.addEventListener('resize', handleResize)
 
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [window.innerWidth])
+  }, [])
 
   useEffect(() => {
     onChangeNumber && _HandleChangeNumber()
@@ -300,6 +329,12 @@ function Lottery() {
 
   return (
     <>
+      {/* <Head>
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+        />
+      </Head> */}
       <p className='hidden rounded border border-red-400 bg-red-100 p-4 text-red-700 lg:block'>
         {t('notSupport')}
       </p>
@@ -792,7 +827,7 @@ const CountDown = memo(
           const formattedMinutes = String(minutes).padStart(2, '0')
           const formattedSeconds = String(seconds).padStart(2, '0')
 
-          const listItem: TListCountDonw[] = [
+          const listItem: TListCountDown[] = [
             {
               title: t('text1'),
               time: formattedDays,
@@ -1066,14 +1101,14 @@ const BodyTabResult = () => {
   }, [onFetching])
 
   return (
-    <div className='flex flex-col gap-4 overflow-auto max-h-[60vh] pb-2'>
+    <div className='flex flex-col gap-4 overflow-auto pb-[70px] h-[calc(100vh_-_200px)] rounded-2xl w-full'>
       {listResult.map((item) => (
         <div key={item.uuid} className='flex flex-col gap-4 p-4 bg-white rounded-2xl'>
           <div className='flex items-center justify-between text-base-black-1'>
             <p className='font-medium'>{item.title}</p>
             <p className='font-light'>{item.time}</p>
           </div>
-          <div className='flex justify-between items-end'>
+          <div className='flex justify-between items-end min-h-[140px]'>
             {!!item?.users?.length ? (
               mapOrder(item.users, ['3', '1', '2'], 'rank').map((item) => (
                 <div key={item.uuid} className='flex flex-col gap-1 items-center'>
@@ -1096,7 +1131,7 @@ const BodyTabResult = () => {
               <></>
             )}
           </div>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2 min-h-[193px]'>
             {!!item?.users?.length ? (
               item.users.map((item) => (
                 <div

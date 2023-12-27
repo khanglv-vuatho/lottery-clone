@@ -7,7 +7,7 @@ export type TListFeature = {
   position?: string
 }
 
-export type TListCountDonw = {
+export type TListCountDown = {
   title: string
   time: string
 }
