@@ -144,7 +144,7 @@ const LotteryMachine = React.forwardRef((props: any, ref: any) => {
         render: {
           strokeStyle: '#ffffff',
           sprite: {
-            texture: `/balls/ball-${i + 1}.png`,
+            texture: `/balls/ball-${i}.png`,
             xScale: 0.35,
             yScale: 0.35,
           },

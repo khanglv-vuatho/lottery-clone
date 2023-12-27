@@ -98,12 +98,28 @@ function Lottery() {
   const _HandleFetching = async () => {
     try {
       // const {data} = await instance.get('lottery/time')
-      const data = {
+      const data: any = {
         auctionTime: Date.now() + 5000,
         name: 'Huy 123',
         participants: 1200,
+        rank: 1,
+        bingo: ['2', '3', '1', '5', '3', '7', '4', '9', '4', '2', '8', '0'],
       }
+
+      const timeCaculator = data?.auctionTime - Date.now()
+      const isPast = timeCaculator < 0
+      const currentIndexBall = Math.floor(
+        ((timeCaculator / 1000) * -1) / timeDefine.TIME_ANIMATION_BALL,
+      )
+
+      setIndexSpiner(isPast ? currentIndexBall + 1 : 0)
+
+      if (currentIndexBall >= data?.bingo?.length) {
+        setCurrentRank(data?.rank - 1)
+      }
+
       setInitalDataFromApi(data)
+      setBingo(data?.bingo)
     } catch (error) {
       console.log(error)
     } finally {
@@ -123,11 +139,16 @@ function Lottery() {
   const startRef: any = useRef()
   const [scope, animate] = useAnimate()
   const [onTimeEnd, setOnTimeEnd] = useState(false)
-  const [index, setIndex] = useState(0)
+  const [indexSpiner, setIndexSpiner] = useState(0)
   const [indexNumber, setIndexNumber] = useState(0)
 
   const [onStartAnimate, setOnStartAnimate] = useState(false)
   const [onChangeNumber, setOnChangeNumber] = useState(false)
+
+  const [onStart, setOnStart] = useState<boolean>(false)
+
+  //data from api
+  const [bingo, setBingo] = useState([])
 
   // list "?" 12 numbers
   const [listBingo, setListBingo] = useState([
@@ -145,47 +166,65 @@ function Lottery() {
     '?',
   ])
 
-  //data from api
-  const [bingo, setBingo] = useState([
-    '2',
-    '3',
-    '1',
-    '5',
-    '3',
-    '7',
-    '4',
-    '9',
-    '4',
-    '2',
-    '8',
-    '0',
-  ])
+  useEffect(() => {
+    // Update listBingo based on bingo array
+    if (initalDataFromApi?.auctionTime) {
+      // const timeCaculator = initalDataFromApi?.auctionTime - Date.now()
+      // const isPast = timeCaculator < 0
+      // const currentIndexBall = Math.floor(((timeCaculator / 1000) * -1) / 18)
 
-  const ROUNDS = 10
-  const ONE_ROUND_DEG = 360
-  const TOTAL_ROUND = ONE_ROUND_DEG * ROUNDS
-  const TIME = TOTAL_ROUND / ONE_ROUND_DEG
-  const TIME_STOP = 4
+      if (indexSpiner <= 11) {
+        setListBingo((prevListBingo) =>
+          prevListBingo.map((item, index) =>
+            index <= indexSpiner - 1 ? bingo[index] : item,
+          ),
+        )
+      } else {
+        setListBingo(bingo)
+      }
+    }
+  }, [initalDataFromApi])
+
+  const timeDefine: any = useMemo(() => {
+    const ROUNDS = 10
+    const ONE_ROUND_DEG = 360
+    const TOTAL_ROUND = ONE_ROUND_DEG * ROUNDS
+    const TIME = TOTAL_ROUND / ONE_ROUND_DEG
+    const TIME_STOP = 4
+    const DELAY_TIME = 0.5
+    const TOTAL_TIME = TIME + TIME_STOP + DELAY_TIME
+    const TIME_ANIMATION_BALL = 21
+
+    return {
+      ROUNDS,
+      ONE_ROUND_DEG,
+      TOTAL_ROUND,
+      TIME,
+      TIME_STOP,
+      TOTAL_TIME,
+      TIME_ANIMATION_BALL,
+    }
+  }, [])
 
   useEffect(() => {
     if (onTimeEnd) {
-      //0 is rank
-      setCurrentRank(0)
+      setCurrentRank(initalDataFromApi?.rank - 1)
+
       animate([
         [
           scope.current,
-          { rotate: TOTAL_ROUND * (index + 1) },
-          { duration: TIME, ease: 'linear', repeat: Infinity, delay: 0.5 },
+          { rotate: timeDefine.TOTAL_ROUND * (indexSpiner + 1) },
+          { duration: timeDefine.TIME, ease: 'linear', repeat: Infinity, delay: 0.5 },
         ],
         [
           scope.current,
-          { rotate: TOTAL_ROUND * (index + 1) + 720 },
-          { duration: TIME_STOP / 2, ease: 'linear' },
+          { rotate: timeDefine.TOTAL_ROUND * (indexSpiner + 1) + 720 },
+          { duration: timeDefine.TIME_STOP / 2, ease: 'linear' },
         ],
         [
           scope.current,
-          { rotate: TOTAL_ROUND * (index + 1) + 720 + 360 },
-          { duration: TIME_STOP / 2 },
+          { rotate: timeDefine.TOTAL_ROUND * (indexSpiner + 1) + 720 + 360 },
+          { duration: timeDefine.TIME_STOP / 2 },
         ],
       ])
       startRef.current = setTimeout(() => {
@@ -199,8 +238,6 @@ function Lottery() {
   }, [onTimeEnd])
 
   const sphereRef: any = useRef()
-  const [onStart, setOnStart] = useState<boolean>(false)
-  const [indexKey, setIndexKey] = useState(1)
 
   const _HandleStart = () => {
     sphereRef.current?.start()
@@ -214,7 +251,7 @@ function Lottery() {
 
   const _HandleStop = () => {
     setOnStart(false)
-    setIndexNumber(index)
+    setIndexNumber(indexSpiner)
     setOnTimeEnd(false)
     setOnStartAnimate(true)
 
@@ -227,7 +264,7 @@ function Lottery() {
     }, 2000)
 
     //Quay hết các cặp số thì return null
-    if (index + 1 === listBingo.length) return null
+    if (indexSpiner + 1 === listBingo.length) return null
 
     refOnTimeEnd.current = setTimeout(() => {
       setOnTimeEnd(true)
@@ -238,199 +275,220 @@ function Lottery() {
   const _HandleChangeNumber = () => {
     setListBingo((prevList) => {
       const newList = [...prevList]
-      newList[index] = bingo[index]
+      newList[indexSpiner] = bingo[indexSpiner]
       return newList
     })
-    setIndex((prevIndex) => prevIndex + 1)
+    setIndexSpiner((prevIndex) => prevIndex + 1)
     setOnChangeNumber(false)
   }
+  const [isSmallScreen, setIsSmallScreen] = useState(window?.innerWidth < 1024)
+
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth < 1024)
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [window.innerWidth])
 
   useEffect(() => {
     onChangeNumber && _HandleChangeNumber()
-    setIndexKey((prev) => prev + 1)
   }, [onChangeNumber])
 
   return (
     <>
-      <p className='hidden rounded border border-red-400 bg-red-100 p-4 text-red-700 md:block'>
+      <p className='hidden rounded border border-red-400 bg-red-100 p-4 text-red-700 lg:block'>
         {t('notSupport')}
       </p>
-      <div className='ct-container-game ct-background-app h-screen pt-10 md:hidden overflow-hidden relative'>
-        <div className='absolute left-[calc(-50vw+50%)] w-[100vw]'>
-          <Image src={'/lottery/money.png'} alt='money' width={505} height={400} />
-        </div>
-        <div
-          className={`relative z-0 top-[40px] flex flex-col items-center transition ${
-            isOpenResult ? 'translate-x-[-110%]' : 'translate-x-0'
-          }`}
-        >
-          <div className='absolute top-[-25%] z-20 pl-[5%]'>
-            <Image src={'/lottery/title.png'} alt='title' width={193} height={83} />
+      {isSmallScreen && (
+        <div className='ct-container-game h-screen pt-10 lg:hidden overflow-hidden relative max-w-[390px]'>
+          <div className='absolute left-[calc(-50vw+50%)] w-[100vw]'>
+            <Image src={'/lottery/money.png'} alt='money' width={505} height={400} />
           </div>
-          <div className='absolute inset-0 top-[5%] z-20 gap-2 '>
-            {onFetching ? (
-              <>Loading</>
-            ) : (
-              <div className='absolute top-0 z-20 bg-white left-1/2 -translate-x-1/2 p-4 rounded-2xl flex flex-col gap-4'>
-                {currentRank <= 3 ? (
-                  <div className='flex items-center gap-2 justify-center'>
-                    <div className='mr-1'>
-                      <Image
-                        src={`/lottery/${listRank[currentRank].thumb}`}
-                        alt={`${listRank[currentRank].title}`}
-                        className='min-h-[24px] min-w-[20px]'
-                        width={20}
-                        height={24}
-                      />
-                    </div>
-                    <p className='text-base-black-1 font-semibold '>
-                      {listRank[currentRank].title}
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    {initalDataFromApi.auctionTime ? (
-                      <h3 className='text-center font-semibold'>
-                        {t('ListCountDonw.text5')}
-                      </h3>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                )}
-                <CountDown
-                  auctionTime={initalDataFromApi.auctionTime}
-                  setOnTimeEnd={setOnTimeEnd}
-                  type='special'
-                />
-              </div>
-            )}
-          </div>
-          <div className='relative z-10 inset-0 flex items-center justify-center'>
-            <div className='absolute inset-0'>
-              <LotteryMachine
-                key={indexKey}
-                config={{
-                  numberBalls: 10,
-                  targetIndex: +bingo[index] - 1,
-                  // times total of animation (ms)
-                  times: (TIME + TIME_STOP / 2) * 1000,
-                }}
-                ref={sphereRef}
-                onEnd={_HandleStop}
-              />
+          <div
+            className={`relative z-0 top-[40px] flex flex-col items-center transition ${
+              isOpenResult ? 'translate-x-[-110%]' : 'translate-x-0'
+            }`}
+          >
+            <div className='absolute top-[-25%] z-20 pl-[5%]'>
+              <Image src={'/lottery/title.png'} alt='title' width={193} height={83} />
             </div>
-
-            <Image src={'/lottery/glass.png'} alt='glass' width={320} height={320} />
-            <motion.div ref={scope} className='absolute w-[290px]'>
-              <Image src={'/lottery/bar.png'} alt='bar' width={290} height={55} />
-            </motion.div>
-          </div>
-          <div className='absolute top-[82%]'>
-            <div className='relative flex flex-col items-center'>
-              <Image
-                src={'/lottery/body.png'}
-                width={358}
-                height={388}
-                alt='body'
-                className='h-[388px] w-[358px]'
-              />
-              <div className='absolute top-[30%] flex flex-col items-center gap-4'>
-                <div className='flex h-[75px] items-center rounded-xl bg-[#81B3FF] p-4 shadow-[0px_1px_2px_0px_rgba(255,255,255,0.50)_inset,0px_-1px_1px_0px_rgba(255,255,255,0.25)_inset]'>
-                  <Hole
-                    onStartAnimate={onStartAnimate}
-                    numberBingo={bingo[indexNumber]}
-                  />
-                </div>
-                <div className='flex w-full flex-col gap-4 px-2'>
-                  <div className='flex gap-3 justify-center items-center '>
-                    {!!mergePairs(listBingo).length &&
-                      mergePairs(listBingo).map((item: any, index: any) => (
-                        <BallNumber number={item} key={index} style='size-10' />
-                      ))}
-                  </div>
-                  <div className='grid w-full grid-cols-3 py-2 pl-2'>
-                    <div className='col-span-2 flex items-center gap-2'>
-                      <span className=''>
-                        <People size={24} className='text-white' />
-                      </span>
-                      <p className=' font-light text-white'>{t('main.text2')}</p>
-                    </div>
-                    <p className='col-span-1 flex justify-center font-semibold text-white'>
-                      <CountUp
-                        end={initalDataFromApi?.participants || 1000}
-                        duration={2}
-                      />
-                    </p>
-                  </div>
-                  <div className='grid grid-cols-3 pl-2'>
-                    <div className='col-span-2 flex items-center gap-2'>
-                      <span className=''>
-                        <Polium className='text-white' />
-                      </span>
-                      <p className=' font-light text-white'>{t('main.text3')}</p>
-                    </div>
-                    <div className='col-span-1 flex h-10 w-full items-center justify-center rounded-[10px] border-1 border-white max-w-[100px] overflow-hidden'>
-                      <p className='line-clamp-1 px-2 text-sm font-semibold text-white'>
-                        {initalDataFromApi?.name || '...'}
+            <div className='absolute inset-0 top-[5%] z-20 gap-2 '>
+              {onFetching ? (
+                <></>
+              ) : (
+                <div className='absolute top-0 z-20 bg-white left-1/2 -translate-x-1/2 p-4 rounded-2xl flex flex-col gap-4'>
+                  {currentRank <= 3 ? (
+                    <div className='flex items-center gap-2 justify-center'>
+                      <div className='mr-1'>
+                        <Image
+                          src={`/lottery/${listRank[currentRank].thumb}`}
+                          alt={`${listRank[currentRank].title}`}
+                          className='min-h-[24px] min-w-[20px]'
+                          width={20}
+                          height={24}
+                        />
+                      </div>
+                      <p className='text-base-black-1 font-semibold '>
+                        {listRank[currentRank].title}
                       </p>
                     </div>
+                  ) : (
+                    <>
+                      {initalDataFromApi.auctionTime ? (
+                        <h3 className='text-center font-semibold'>
+                          {t('ListCountDonw.text5')}
+                        </h3>
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  )}
+                  <CountDown
+                    auctionTime={initalDataFromApi.auctionTime}
+                    index={indexSpiner}
+                    setOnTimeEnd={setOnTimeEnd}
+                    type='special'
+                  />
+                </div>
+              )}
+            </div>
+            <div className='relative z-10 inset-0 flex items-center justify-center'>
+              <div className='absolute inset-0'>
+                <LotteryMachine
+                  key={indexSpiner}
+                  config={{
+                    numberBalls: 10,
+                    targetIndex: +bingo[indexSpiner] - 1,
+                    // times total of animation (ms)
+                    times: (timeDefine.TIME + timeDefine.TIME_STOP / 2) * 1000,
+                  }}
+                  ref={sphereRef}
+                  onEnd={_HandleStop}
+                />
+              </div>
+
+              <Image src={'/lottery/glass.png'} alt='glass' width={320} height={320} />
+              <motion.div ref={scope} className='absolute w-[290px]'>
+                <Image src={'/lottery/bar.png'} alt='bar' width={290} height={55} />
+              </motion.div>
+            </div>
+            <div className='absolute top-[82%]'>
+              <div className='relative flex flex-col items-center'>
+                <Image
+                  src={'/lottery/body.png'}
+                  width={358}
+                  height={388}
+                  alt='body'
+                  className='h-[388px] w-[358px]'
+                />
+                <div className='absolute top-[30%] flex flex-col items-center gap-4'>
+                  <div className='flex h-[75px] items-center rounded-xl bg-[#81B3FF] p-4 shadow-[0px_1px_2px_0px_rgba(255,255,255,0.50)_inset,0px_-1px_1px_0px_rgba(255,255,255,0.25)_inset]'>
+                    <Hole
+                      onStartAnimate={onStartAnimate}
+                      numberBingo={bingo[indexNumber]}
+                    />
+                  </div>
+                  <div className='flex w-full flex-col gap-4 px-2'>
+                    <div className='flex gap-3 justify-center items-center '>
+                      {!!mergePairs(listBingo).length &&
+                        mergePairs(listBingo).map((item: any, index: any) => (
+                          <BallNumber number={item} key={index} style='size-10' />
+                        ))}
+                    </div>
+                    <div className='grid w-full grid-cols-3 py-2 pl-2'>
+                      <div className='col-span-2 flex items-center gap-2'>
+                        <span className=''>
+                          <People size={24} className='text-white' />
+                        </span>
+                        <p className=' font-light text-white'>{t('main.text2')}</p>
+                      </div>
+                      <p className='col-span-1 flex justify-center font-semibold text-white'>
+                        <CountUp
+                          end={initalDataFromApi?.participants || 1000}
+                          duration={2}
+                        />
+                      </p>
+                    </div>
+                    <div className='grid grid-cols-3 pl-2'>
+                      <div className='col-span-2 flex items-center gap-2'>
+                        <span className=''>
+                          <Polium className='text-white' />
+                        </span>
+                        <p className=' font-light text-white'>{t('main.text3')}</p>
+                      </div>
+                      <div className='col-span-1 flex h-10 w-full items-center justify-center rounded-[10px] border-1 border-white max-w-[100px] overflow-hidden'>
+                        <p className='line-clamp-1 px-2 text-sm font-semibold text-white'>
+                          {initalDataFromApi?.name || '...'}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className={`absolute top-[6%] transition w-full ${
-            isOpenResult ? 'translate-x-0' : 'translate-x-[110%]'
-          }`}
-        >
-          <Button
-            isIconOnly
-            radius='full'
-            className='bg-gradient-to-br from-[#FFF8E6] via-[#FFB300] to-[#FFCB51]'
-            onClick={() => setIsOpenResult(false)}
+          <div
+            className={`absolute top-[6%] transition w-full ${
+              isOpenResult ? 'translate-x-0' : 'translate-x-[110%]'
+            }`}
           >
-            <ArrowLeft size={16} className='text-bold text-base-black-1' />
-          </Button>
-          <div className='relative pr-8'>
-            <Tabs
-              aria-label='Dynamic tabs result'
-              items={tabsResult}
+            <Button
+              isIconOnly
               radius='full'
-              variant='light'
-              classNames={{
-                base: 'w-full justify-center',
-                tab: ' text-base bg-white/10 py-5 px-6',
-                cursor: 'w-full group-data-[selected=true]:bg-white',
-                tabContent:
-                  'group-data-[selected=true]:text-[#06b6d4] group-data-[selected=true]:font-medium text-white group-data-[selected=true]:text-primary-blue',
-                panel: 'px-0',
-              }}
+              className='bg-gradient-to-br from-[#FFF8E6] via-[#FFB300] to-[#FFCB51]'
+              onClick={() => setIsOpenResult(false)}
             >
-              {(item) => (
-                <Tab key={item.id} title={item.label}>
-                  {item.content}
-                </Tab>
-              )}
-            </Tabs>
+              <ArrowLeft size={16} className='text-bold text-base-black-1' />
+            </Button>
+            <div className='relative pr-8'>
+              <Tabs
+                aria-label='Dynamic tabs result'
+                items={tabsResult}
+                radius='full'
+                variant='light'
+                classNames={{
+                  base: 'w-full justify-center',
+                  tab: ' text-base bg-white/10 py-5 px-6',
+                  cursor: 'w-full group-data-[selected=true]:bg-white',
+                  tabContent:
+                    'group-data-[selected=true]:text-[#06b6d4] group-data-[selected=true]:font-medium text-white group-data-[selected=true]:text-primary-blue',
+                  panel: 'px-0',
+                }}
+              >
+                {(item) => (
+                  <Tab key={item.id} title={item.label}>
+                    {item.content}
+                  </Tab>
+                )}
+              </Tabs>
+            </div>
+          </div>
+          <div className='fixed bottom-0 left-0 right-0 z-[1] flex max-full items-center justify-center bg-gradient-to-r from-[#4D7FFF] via-[#8AB4FF] to-[#3E75FF]'>
+            <div className='grid grid-cols-3 items-center justify-center gap-8 p-4 w-[390px]'>
+              {listFeature.map((item, index) => {
+                if (index === 0) {
+                  return (
+                    <Result
+                      item={item}
+                      key={item.title}
+                      setIsOpenResult={setIsOpenResult}
+                    />
+                  )
+                }
+                return <ItemFeature key={item.title} item={item} />
+              })}
+            </div>
           </div>
         </div>
-        <div className='fixed bottom-0 left-0 right-0 z-[1] grid grid-cols-3 items-center justify-center gap-8 bg-gradient-to-r from-[#4D7FFF] via-[#8AB4FF] to-[#3E75FF] p-4'>
-          {listFeature.map((item, index) => {
-            if (index === 0) {
-              return (
-                <Result item={item} key={item.title} setIsOpenResult={setIsOpenResult} />
-              )
-            }
-            return <ItemFeature key={item.title} item={item} />
-          })}
-        </div>
-      </div>
+      )}
     </>
   )
 }
+
 const Hole = ({
   onStartAnimate,
   numberBingo,
@@ -480,7 +538,7 @@ const Hole = ({
                 className='absolute min-h-[35px] min-w-[35px] ball'
               />
               <p className='absolute text-black z-30 flex items-center justify-center min-h-[35px] min-w-[35px] text-ball text-sm'>
-                {+numberBingo === 10 ? numberBingo : `0${numberBingo}`}
+                {numberBingo}
               </p>
             </div>
           </div>
@@ -693,10 +751,12 @@ const CountDown = memo(
     setOnTimeEnd,
     auctionTime,
     type = 'default',
+    index,
   }: {
     setOnTimeEnd?: any
     auctionTime: number
     type?: string
+    index?: any
   }) => {
     const t = useTranslations('Lottery.ListCountDonw')
     const td = useTranslations('Lottery')
@@ -721,7 +781,7 @@ const CountDown = memo(
           if (completed) {
             if (setOnTimeEnd) {
               setOnTimeEnd(true)
-              return
+              return null
             }
           }
           const formattedDays = String(days).padStart(2, '0')
@@ -776,6 +836,7 @@ const CountDown = memo(
     }, [])
 
     if (!mounted) return null
+    if (index >= 12) return null
 
     return <Countdown date={auctionTime} renderer={renderer} />
   },

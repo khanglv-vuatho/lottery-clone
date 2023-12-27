@@ -36,7 +36,7 @@ export default async function RootLayout({ children, params }: any) {
   }
   return (
     <html lang={locale}>
-      <body className={inter.className}>
+      <body className={inter.className + ' ct-background-app'}>
         <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
           {children}
         </NextIntlClientProvider>
